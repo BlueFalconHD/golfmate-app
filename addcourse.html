@@ -5,7 +5,7 @@
 
 <head>
     <Title>Add Course</Title>
-    
+
     <style>
         .top {
             width: 100%;
@@ -22,49 +22,44 @@
             display: inline-block;
             font-family: Georgia, 'Times New Roman', Times, serif;
         }
-
+        
         .text {
             font-size: 20px;
-            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: black;
             padding-left: 15px;
             padding-top: 10px;
-
         }
-
+        
         .subtext {
             font-size: 15px;
-            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: black;
             padding-left: 15px;
             padding-top: 10px;
-
         }
-
+        
         .title {
-            
             font-size: 40px;
-            font-family:Georgia, 'Times New Roman', Times, serif;
+            font-family: Georgia, 'Times New Roman', Times, serif;
             color: black;
             padding-left: 10px;
-
         }
-
+        
         .htext {
             animation: myAnim 1s ease 0s 1 normal forwards;
             margin-top: 5px;
         }
-
+        
         @keyframes myAnim {
             0% {
                 transform: scale(0);
             }
-      
             100% {
                 transform: scale(1);
             }
         }
-
+        
         .course {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 20px;
@@ -73,196 +68,231 @@
             border-style: solid;
             margin-left: 15px;
             padding-left: 10px;
-            margin-bottom: 10px;
+            padding-right: 10px;
+            margin-top: 5px;
+            width: fit-content;
+            width: intrinsic;
+            /* Safari/WebKit uses a non-standard name */
+            width: -moz-max-content;
+            /* Firefox/Gecko */
+            width: -webkit-max-content;
         }
-
         
-
+        .course:hover {
+            background-color: darkgray;
+            color: white;
+        }
+        
+        .course:active {
+            background-color: white;
+            color: black;
+            transition: 0.2ms;
+        }
+        
         li::marker {
             border-color: rgb(209, 209, 209);
             border-style: solid;
-
             content: "🏌️  "
         }
-
+        
         .cm-in {
             margin-left: 15px;
             font-weight: 500;
             font-size: medium;
             color: black;
-            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin-top: 15px;
             border-radius: 20px;
             border-color: blue;
             padding-left: 10px;
-            transition: transform .2s; /* Animation */
+            transition: transform .2s;
+            /* Animation */
             padding-right: 10px;
             background-color: transparent;
             transition: 0.5s;
         }
-
+        
         .cm-in:hover {
             margin-left: 47px;
             font-weight: 500;
             font-size: medium;
             color: black;
-            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin-top: 15px;
-            
             border-color: blue;
             padding-left: 10px;
             padding-right: 10px;
             background-color: rgba(209, 209, 209, 0.26);
             transition: 0.5s;
-            
             transform: scale(1.5);
-
         }
-
+        
         .cm-in:focus {
             margin-left: 47px;
             font-weight: 500;
             font-size: medium;
             color: black;
-            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin-top: 15px;
-            
             border-color: blue;
             padding-left: 10px;
             padding-right: 10px;
             background-color: rgba(209, 209, 209, 0.26);
             transition: 0.5s;
-            
             transform: scale(1.5);
-
         }
-
+        
         .cm-txt {
             margin-left: 15px;
             font-weight: 500;
             font-size: medium;
             color: black;
-            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin-top: 15px;
             border-radius: 20px;
             border-color: blue;
             padding-left: 10px;
             transition: 1s;
             width: 200px;
-            transition: transform .2s; /* Animation */
+            transition: transform .2s;
+            /* Animation */
             transition: 0.5s;
         }
-
-        .cm-txt:hover{
+        
+        .cm-txt:hover {
             width: 230px;
             margin-left: 71px;
             transition: 0.5s;
             transform: scale(1.5);
             background-color: rgba(209, 209, 209, 0.26);
         }
-
-        .cm-txt:focus{
+        
+        .cm-txt:focus {
             width: 230px;
             margin-left: 71px;
             transition: 0.5s;
             transform: scale(1.5);
             background-color: rgba(209, 209, 209, 0.26);
         }
-
+        
         body {
             width: 100%;
             height: 100%
         }
-
+        
         .playcourse {
             width: 20px;
             height: 20px;
         }
         
-
         .playcoursebtn {
-            background-color:rgba(209, 209, 209, 0);
+            background-color: rgba(209, 209, 209, 0);
             border: none;
             width: 30px;
             height: 20px;
         }
-
+        
         .playcoursebtn::focus {
-            background-color:rgb(209, 209, 209);
+            background-color: rgb(209, 209, 209);
             border: none;
         }
-
+        
+        .nukedat {
+            position: fixed;
+            bottom: 0;
+            width: 20pxpx;
+            text-align: left;
+            color: darkred;
+            font-size: 15px;
+            background-color: transparent;
+            border: none;
+            font-weight: bold;
+            transition: 0.5s;
+        }
+        
+        .nukedat:hover {
+            background-color: rgba(138, 138, 138, 0.823);
+            border-radius: 5px;
+            margin-bottom: 10px;
+            transition: 0.5s;
+            text-decoration: underline;
+        }
     </style>
 
     <script>
-        
+        function sleep(milliseconds) {
+            const date = Date.now();
+            let currentDate = null;
+            do {
+                currentDate = Date.now();
+            } while (currentDate - date < milliseconds);
+        }
 
 
 
 
         function createCourse() {
-            let NewCourseName = document.getElementById("courseName").value;
+            let NewCourseName = document.getElementById("courseName").value; // Gets Course name
             console.log('Course Created. Name: ' + NewCourseName);
 
-            var courseDiv = document.getElementById('courselist')
+            var courseDiv = document.getElementById('courselist'); // refs div#courseList
 
-            let newline = document.createElement('br');
+            let newline = document.createElement('br'); // Create <br> element
 
-            courseDiv.appendChild(newline);
-            courseDiv.appendChild(newline);
+            courseDiv.appendChild(newline); // add element to div: #courselist
 
-            let courseElement = document.createElement('span');
+            let courseElement = document.createElement('button'); // creates course button.
 
-            courseElement.setAttribute('class', 'course');
+            courseElement.setAttribute('class', 'course'); // sets class to "course"
+            courseElement.setAttribute('id', 'playcourse')
 
-            let text = document.createTextNode(NewCourseName);
-
-            let button = document.createElement('button');
-
-            button.setAttribute('class', 'playcoursebtn');
-
-            button.setAttribute('id', 'play');
+            courseElement.setAttribute('data-name', NewCourseName)
+            courseElement.setAttribute('onclick', 'openCourse(' + NewCourseName + ')')
 
 
-            let play = document.createElement('img');
-
-            play.setAttribute('src', 'https://freeiconshop.com/wp-content/uploads/edd/play-flat.png');
-
-            play.setAttribute('class', 'playcourse');
-
-            button.appendChild(play);
+            let text = document.createTextNode(NewCourseName); // Adds name to course button
 
 
+
+
+
+
+            // Adds text to courseElement
 
             courseElement.appendChild(text);
-            
 
-            courseElement.appendChild(button);
+
+            // Appends courseElement to #courselist
 
             courseDiv.appendChild(courseElement);
 
+            // Sets input to null
+
             document.getElementById("courseName").value = "";
 
-            
-            if ('courses' in localStorage) {
+            // STORAGE
+
+
+            if ('courses' in localStorage) { // tests if courses key exists
 
                 console.log('Courses key exists in localStorage')
             } else {
-                localStorage.setItem("courses", JSON.stringify([])); //store colors
-
+                localStorage.setItem("courses", JSON.stringify([])); // creates json structure of a list
+                console.log('Created courses list in localstorage - ln 278')
             }
 
-            var previtems = JSON.parse(localStorage.getItem("courses")); //get them back
+            var previtems = JSON.parse(localStorage.getItem("courses")); // get list from  localstorage-courses
 
-            
 
-            previtems.push(NewCourseName)
 
-            localStorage.setItem("courses", JSON.stringify(previtems)); //store colors
+            previtems.push(NewCourseName) // Adds the new course
+
+            localStorage.setItem("courses", JSON.stringify(previtems)); // restores courses
 
         }
-        function LoadCourse() {
-            let NewCourseName = arguments[0];
+
+        function loadCourse() {
+            let NewCourseName = arguments[0]; // sets name to argss-0
             console.log('Course loaded from memory. Name: ' + NewCourseName);
 
             var courseDiv = document.getElementById('courselist');
@@ -272,43 +302,39 @@
             courseDiv.appendChild(newline);
             courseDiv.appendChild(newline);
 
-            let courseElement = document.createElement('span');
+            let courseElement = document.createElement('button');
 
             courseElement.setAttribute('class', 'course');
+            courseElement.setAttribute('id', 'playcourse')
+
+            courseElement.setAttribute('data-name', NewCourseName)
+
+            courseElement.setAttribute('onclick', 'openCourse(' + NewCourseName + ')')
+
 
             let text = document.createTextNode(NewCourseName);
 
-            let button = document.createElement('button');
 
-            button.setAttribute('class', 'playcoursebtn');
-
-            button.setAttribute('id', 'play');
-
-
-            let play = document.createElement('img');
-
-            play.setAttribute('src', 'https://freeiconshop.com/wp-content/uploads/edd/play-flat.png');
-
-            play.setAttribute('class', 'playcourse');
-
-            button.appendChild(play);
 
 
 
             courseElement.appendChild(text);
-            
 
-            courseElement.appendChild(button);
+
 
             courseDiv.appendChild(courseElement);
 
             document.getElementById("courseName").value = "";
 
-            
-            
+
+
 
         }
-         
+
+        function navigateCourse(name) {
+            let element = document.body.querySelector('.course[data-name="' + name + '"]');
+
+        }
     </script>
 
 
@@ -316,15 +342,15 @@
 
 <body style="background-color: rgb(228, 228, 228);">
 
-    
+
 
     <div class="top">
         <img src="https://cdn0.iconfinder.com/data/icons/sports-equipment-10/100/Golf_club_bag-32.png" alt="GolfMate Logo" style="float: left; margin-top: -6px;">
         <span style="margin-left: 15px;" class="htext">GolfMate</span>
     </div>
     <div style="display:block; margin-top: 60px; padding-top: 30px;">
-    
-            
+
+
         <span class="title">Course Creator</span>
 
         <br>
@@ -334,8 +360,10 @@
 
 
             <div id="courselist">
-                
+
             </div>
+
+            <br>
 
             <span class="text">Create Course:</span>
             <br>
@@ -345,17 +373,17 @@
             <div>
                 <input width="200px" type="text" placeholder="Course Name..." id="courseName" class="cm-txt">
                 <br>
-                
-                
+
+
                 <Button class="cm-in" onclick="createCourse();">Create Course</Button>
             </div>
-            
+
 
 
         </div>
 
     </div>
-    
+
     <script>
         var allitems = JSON.parse(localStorage.getItem("courses"));
 
@@ -363,8 +391,23 @@
 
         for (let step = 0; step < length; step++) {
             // Runs 5 times, with values of step 0 through 4.
-            LoadCourse(allitems[step])
+            loadCourse(allitems[step])
+        }
+
+        function nukedat() {
+            let conf = confirm('Are you sure you want to delete all your courses and save data')
+            if (conf) {
+                localStorage.clear();
+                location.reload();
+            }
+
         }
     </script>
+
+    <div>
+        <button class="nukedat" onclick="nukedat()">
+            <span>Nuke Data <img src="https://cdn3.iconfinder.com/data/icons/jumpicon-military-glyph/32/-_Bomb-Airforce-Atomic-Military-War-Nuclear-512.png" width="15px" style="background-color: rgba(209, 209, 209, 0);"></span>
+        </button>
+    </div>
 
 </body>
