@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+
+<meta charset="UTF-8">
+
+
+<head>
+    <Title>Add Course</Title>
+    <link rel="stylesheet" href="switches.css">
+
+    <style>
+        .top {
+            width: 100%;
+            height: 45px;
+            background-color: grey;
+            color: white;
+            margin-left: -20px;
+            position: fixed;
+            padding-left: 20px;
+            font-size: large;
+            padding-top: 25px;
+            margin-top: -60px;
+            margin-bottom: 30px;
+            display: inline-block;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+        
+        .text {
+            font-size: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: black;
+            padding-left: 15px;
+            padding-top: 10px;
+        }
+        
+        .subtext {
+            font-size: 15px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: black;
+            padding-left: 15px;
+            padding-top: 10px;
+        }
+        
+        .title {
+            font-size: 40px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            color: black;
+            padding-left: 10px;
+        }
+        
+        .htext {
+            animation: myAnim 1s ease 0s 1 normal forwards;
+            margin-top: 5px;
+        }
+        
+        @keyframes myAnim {
+            0% {
+                transform: scale(0);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        .course {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 20px;
+            color: grey;
+            border-color: rgb(209, 209, 209);
+            border-style: solid;
+            margin-left: 15px;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-top: 5px;
+            width: fit-content;
+            width: intrinsic;
+            /* Safari/WebKit uses a non-standard name */
+            width: -moz-max-content;
+            /* Firefox/Gecko */
+            width: -webkit-max-content;
+        }
+        
+        .course:hover {
+            background-color: darkgray;
+            color: white;
+        }
+        
+        .course:active {
+            background-color: white;
+            color: black;
+            transition: 0.2ms;
+        }
+        
+        li::marker {
+            border-color: rgb(209, 209, 209);
+            border-style: solid;
+            content: "🏌️  "
+        }
+        
+        .cm-in {
+            margin-left: 15px;
+            font-weight: 500;
+            font-size: medium;
+            color: black;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin-top: 15px;
+            border-radius: 20px;
+            border-color: blue;
+            padding-left: 10px;
+            transition: transform .2s;
+            /* Animation */
+            padding-right: 10px;
+            background-color: transparent;
+            transition: 0.5s;
+        }
+        
+        .cm-in:hover {
+            margin-left: 47px;
+            font-weight: 500;
+            font-size: medium;
+            color: black;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin-top: 15px;
+            border-color: blue;
+            padding-left: 10px;
+            padding-right: 10px;
+            background-color: rgba(209, 209, 209, 0.26);
+            transition: 0.5s;
+            transform: scale(1.5);
+        }
+        
+        .cm-in:focus {
+            margin-left: 47px;
+            font-weight: 500;
+            font-size: medium;
+            color: black;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin-top: 15px;
+            border-color: blue;
+            padding-left: 10px;
+            padding-right: 10px;
+            background-color: rgba(209, 209, 209, 0.26);
+            transition: 0.5s;
+            transform: scale(1.5);
+        }
+        
+        .cm-txt {
+            margin-left: 15px;
+            font-weight: 500;
+            font-size: medium;
+            color: black;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin-top: 15px;
+            border-radius: 20px;
+            border-color: blue;
+            padding-left: 10px;
+            transition: 1s;
+            width: 200px;
+            transition: transform .2s;
+            /* Animation */
+            transition: 0.5s;
+        }
+        
+        .cm-txt:hover {
+            width: 230px;
+            margin-left: 71px;
+            transition: 0.5s;
+            transform: scale(1.5);
+            background-color: rgba(209, 209, 209, 0.26);
+        }
+        
+        .cm-txt:focus {
+            width: 230px;
+            margin-left: 71px;
+            transition: 0.5s;
+            transform: scale(1.5);
+            background-color: rgba(209, 209, 209, 0.26);
+        }
+        
+        body {
+            width: 100%;
+            height: 100%
+        }
+        
+        .playcourse {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .playcoursebtn {
+            background-color: rgba(209, 209, 209, 0);
+            border: none;
+            width: 30px;
+            height: 20px;
+        }
+        
+        .playcoursebtn::focus {
+            background-color: rgb(209, 209, 209);
+            border: none;
+        }
+        
+        .nukedat {
+            position: fixed;
+            bottom: 0;
+            width: 20pxpx;
+            text-align: left;
+            color: darkred;
+            font-size: 15px;
+            background-color: transparent;
+            border: none;
+            font-weight: bold;
+            transition: 0.5s;
+        }
+        
+        .nukedat:hover {
+            background-color: rgba(138, 138, 138, 0.823);
+            border-radius: 5px;
+            margin-bottom: 10px;
+            transition: 0.5s;
+            text-decoration: underline;
+        }
+        
+        table {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            border-collapse: collapse;
+            width: 100%;
+            font-size: large;
+        }
+        
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+            color: black
+        }
+        
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+        
+        th {
+            font-weight: bold;
+        }
+        
+        .holenum {
+            width: 1px;
+            text-align: center;
+        }
+        
+        .sph {
+            border-radius: 20px;
+            width: fit-content;
+            height: 20px;
+            background-color: darkgray;
+            padding: 3px 7px 3px 7px;
+            display: inline-block;
+        }
+    </style>
+
+    <script>
+        function GetURLParameter(sParam) {
+            var sPageURL = window.location.search.substring(1);
+            var sURLVariables = sPageURL.split('&');
+            for (var i = 0; i < sURLVariables.length; i++) {
+                var sParameterName = sURLVariables[i].split('=');
+                if (sParameterName[0] == sParam) {
+                    return sParameterName[1];
+                }
+            }
+        };
+
+
+        function loadcourse() {
+            let title = document.getElementById('courseTitleName');
+            let partxt = document.getElementById('par');
+
+            let cname = GetURLParameter('cn');
+
+            let cpar = GetURLParameter('cp');
+
+            cname = decodeURI(cname);
+            cpar = decodeURI(cpar);
+
+
+            let courseNameDom = document.createTextNode(cname);
+            let parDom = document.createTextNode('Par: ' + cpar);
+
+            title.appendChild(courseNameDom);
+            partxt.appendChild(parDom);
+
+
+        };
+
+        function parseLocalList(key) {
+            let previtems = JSON.parse(localStorage.getItem(key))
+        }
+
+        function setLocalList(key, value) {
+            localStorage.setItem(key, JSON.stringify(value))
+        }
+
+        if (GetURLParameter('cn') + 'p' in localStorage) { // tests if courses key exists
+
+            console.log('Par for course key exists in localStorage')
+
+        } else {
+            var parltt = []
+
+            for (i = 0; i < 18; i++) {
+                parltt.push(0)
+            }
+
+            setLocalList(GetURLParameter('cn') + 'p', parltt) // creates json structure of a list
+            console.log(JSON.stringify(parltt))
+            console.log('Created  list in localstorage')
+        }
+
+        if (GetURLParameter('cn') in localStorage) {
+            console.log('Course stroke amt exists')
+        } else {
+            localStorage.setItem(GetURLParameter('cn'), 0)
+        }
+
+        if (GetURLParameter('cn') + 's' in localStorage) {
+            console.log('Course strokes exist')
+        } else {
+            strokes = [];
+
+            for (i = 0; i < 18; i++) {
+                strokes.push([])
+            }
+            console.log(JSON.stringify(strokes))
+            setLocalList(GetURLParameter('cn') + 's', strokes)
+        }
+
+        if (GetURLParameter('cn') + 'h' in localStorage) {
+            console.log('Course hole number types exist')
+        } else {
+            localStorage.setItem(GetURLParameter('cn') + 'h', 1)
+        }
+
+
+        function reloadui() {
+            let cname = GetURLParameter('cn')
+
+            let strokes = document.getElementById('currenthits')
+
+            let strokest = document.createTextNode(localStorage.getItem(cname))
+
+            strokes.innerHTML = 'Strokes: ';
+
+            strokes.appendChild(strokest)
+
+            // -------------------
+
+            let hole = document.getElementById('hole')
+
+            let holet = document.createTextNode(localStorage.getItem(cname + 'h'))
+
+            hole.innerHTML = 'Hole ';
+
+            hole.appendChild(holet)
+
+            // -------------------
+
+
+
+            let parchanger = document.getElementById('changepar');
+            let parcounter = document.getElementById('holepar');
+
+            let parv = parchanger.value
+
+            parcounter.innerHTML = 'Par: ';
+
+            let newpar = document.createTextNode(parv)
+
+            parcounter.appendChild(newpar)
+
+            let hnum = JSON.parse(localStorage.getItem(cname + 'h')) // Hole number
+            let pall = JSON.parse(localStorage.getItem(cname + 'p')) // Par list
+
+
+            pall[hnum - 1] = parseInt(parv);
+
+            setLocalList(GetURLParameter('cn') + 'p', pall)
+
+
+
+
+        }
+
+        function addstroke(type) {
+            let cname = GetURLParameter('cn')
+
+            let oldl = parseInt(localStorage.getItem(cname)); // Old score
+            let olds = JSON.parse(localStorage.getItem(cname + 's')) // Old stroke types
+            let hnum = JSON.parse(localStorage.getItem(cname + 'h')) // Hole number
+            let pall = JSON.parse(localStorage.getItem(cname + 'p')) // Par list
+
+            if (type === 1) { // Shot
+                var stype = 'shot'
+            }
+
+            if (type === 2) { // Chip 
+                var stype = 'chip'
+            }
+
+            if (type === 3) { // Putt
+                var stype = 'putt'
+            }
+
+            if (type === 4) { // Putt on green
+                var stype = 'puttog'
+            }
+
+            olds[hnum - 1].push(stype)
+
+
+            oldl++;
+
+            localStorage.setItem(cname, oldl);
+            setLocalList(cname + 's', olds)
+
+
+            console.log('Hole ' + hnum)
+            console.log('New stroke count: ' + oldl);
+            console.log('Stroke type: ' + stype)
+            console.log('Debug: ' + JSON.stringify(olds))
+            console.log('------------------------------------------')
+
+            // if ()
+
+            reloadui();
+        }
+
+        function nexthole() {
+            let cname = GetURLParameter('cn')
+            let hnum = JSON.parse(localStorage.getItem(cname + 'h')) // Hole number
+            hnum++;
+            localStorage.setItem(cname + 'h', hnum)
+            reloadui()
+        }
+
+
+
+
+        // let parstore = {Coursename : [pars]}
+    </script>
+</head>
+
+<body style="background-color: rgb(228, 228, 228);">
+    <div class="top">
+        <img src="https://cdn0.iconfinder.com/data/icons/sports-equipment-10/100/Golf_club_bag-32.png" alt="GolfMate Logo" style="float: left; margin-top: -6px;">
+        <span style="margin-left: 15px;" class="htext">GolfMate</span>
+    </div>
+    <div style="display:block; margin-top: 60px; padding-top: 30px;">
+
+
+        <span class="title" id="courseTitleName"></span>
+        <br>
+        <span class="text" id="par"></span>
+
+        <br style="margin-bottom: 10px;">
+
+        <div style="margin-left: 15px; white-space: nowrap;">
+            <input type="checkbox" id="switch" /><label class="slabel" for="switch">Toggle</label>
+            <p>On: 18 Hole</p>
+            <p>Off: 9 Hole</p>
+        </div>
+
+
+
+        <div style="margin-top: 20px;">
+            <span class="title" id="hole">Hole 1</span>
+            <p class="text" id="holepar">Par: 1</p>
+            <input placeholder="Edit Par..." type="number" style="margin-left: 15px; height: 25px; border-radius: 15px; background-color: white; padding: 0px 7px 0px 7px; appearance: none; text-align: center;" onchange="reloadui()" id="changepar">
+            <p class="text" id="currenthits">Strokes: 1</p>
+            <div>
+                <p class="text">Add strokes:</p>
+
+                <select style="margin-left: 15px; height: 25px; border-radius: 15px; background-color: white; padding: 0px 7px 0px 7px; appearance: none; text-align: center;" id='ss'>
+                    <option>Shot</option>
+                    <option>Chip</option>
+                    <option>Putt</option>
+                    <option>Putt on Green</option>
+                </select>
+
+                <button style="height: 25px; border-radius: 15px; background-color: white; padding: 0px 7px 0px 7px; appearance: none; text-align: center;" onclick="let sstype = document.getElementById('ss'); if (sstype.value === 'Shot') {var type = 1}; if (sstype.value === 'Chip') {var type = 2}; if (sstype.value === 'Putt') {var type = 3}; if (sstype.value === 'Putt on Green') {var type = 4}; addstroke(type)">Add</button>
+            </div>
+
+            <div style="margin-left: 15px;">
+                <a style="margin-bottom: 20px; height: 20px; display: inline-block"></a>
+                <button style="height: 40px; border-radius: 5px; background-color: lightgreen; padding: 0px 7px 0px 7px; appearance: none; text-align: center;" onclick="nexthole()">Next Hole</button>
+            </div>
+        </div>
+
+
+        <script>
+            loadcourse()
+
+            reloadui()
+
+            let parchanger = document.getElementById('changepar');
+            parchanger.value = 0;
+        </script>
+
+    </div>
+</body>
