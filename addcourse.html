@@ -228,6 +228,11 @@
             } while (currentDate - date < milliseconds);
         }
 
+        function openCourse(cn) {
+            let newurl = 'https://bluefalconhd.github.io/golfmate-app/viewcourse.html?cn=' + cn + '&cp=72';
+            window.location = newurl;
+        }
+
 
 
 
@@ -244,10 +249,9 @@
             let courseElement = document.createElement('button'); // creates course button.
 
             courseElement.setAttribute('class', 'course'); // sets class to "course"
-            courseElement.setAttribute('id', 'playcourse')
-
-            courseElement.setAttribute('data-name', NewCourseName)
-            courseElement.setAttribute('onclick', 'openCourse(' + NewCourseName + ')')
+            courseElement.setAttribute('id', 'playcourse');
+            courseElement.setAttribute('data-name', NewCourseName);
+            courseElement.setAttribute('onclick', 'window.location = "https://bluefalconhd.github.io/golfmate-app/viewcourse.html?cn=" + this.getAttribute("data-name") +"&cp=72"');
 
 
             let text = document.createTextNode(NewCourseName); // Adds name to course button
@@ -275,17 +279,17 @@
 
             if ('courses' in localStorage) { // tests if courses key exists
 
-                console.log('Courses key exists in localStorage')
+                console.log('Courses key exists in localStorage');
             } else {
                 localStorage.setItem("courses", JSON.stringify([])); // creates json structure of a list
-                console.log('Created courses list in localstorage - ln 278')
+                console.log('Created courses list in localstorage - ln 278');
             }
 
             var previtems = JSON.parse(localStorage.getItem("courses")); // get list from  localstorage-courses
 
 
 
-            previtems.push(NewCourseName) // Adds the new course
+            previtems.push(NewCourseName); // Adds the new course
 
             localStorage.setItem("courses", JSON.stringify(previtems)); // restores courses
 
@@ -305,11 +309,11 @@
             let courseElement = document.createElement('button');
 
             courseElement.setAttribute('class', 'course');
-            courseElement.setAttribute('id', 'playcourse')
+            courseElement.setAttribute('id', 'playcourse');
 
-            courseElement.setAttribute('data-name', NewCourseName)
+            courseElement.setAttribute('data-name', NewCourseName);
 
-            courseElement.setAttribute('onclick', 'openCourse(' + NewCourseName + ')')
+            courseElement.setAttribute('onclick', 'window.location = "https://bluefalconhd.github.io/golfmate-app/viewcourse.html?cn=" + this.getAttribute("data-name") +"&cp=72"');
 
 
             let text = document.createTextNode(NewCourseName);
@@ -325,15 +329,6 @@
             courseDiv.appendChild(courseElement);
 
             document.getElementById("courseName").value = "";
-
-
-
-
-        }
-
-        function navigateCourse(name) {
-            let element = document.body.querySelector('.course[data-name="' + name + '"]');
-
         }
     </script>
 
