@@ -314,10 +314,34 @@
                 holediv = document.getElementById(index + 1)
                 text = document.createElement('p')
                 text.setAttribute('class', 'subtext')
-                text.innerHTML = parseLocalList(cname + 's')[index + 1]
+                text.innerHTML = parseLocalList(cname + 's')[index - 1]
 
                 holediv.appendChild(text)
+
+                rep()
             }
+        }
+
+        function rep() {
+            document.body.innerHTML =
+                document.body.innerHTML
+                .replace(/puttog/g, " Putt on green");
+
+            document.body.innerHTML =
+                document.body.innerHTML
+                .replace(/shot/g, " Shot");
+
+            document.body.innerHTML =
+                document.body.innerHTML
+                .replace(/putt/g, " Putt");
+
+            document.body.innerHTML =
+                document.body.innerHTML
+                .replace(/chip/g, " Chip");
+
+            document.body.innerHTML =
+                document.body.innerHTML
+                .replace(/undefined/g, " None");
         }
     </script>
 </head>

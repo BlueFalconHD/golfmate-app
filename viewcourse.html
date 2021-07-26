@@ -274,7 +274,9 @@
             let title = document.getElementById('courseTitleName');
             let partxt = document.getElementById('par');
 
+
             let cname = GetURLParameter('cn');
+            let hnum = parseLocalList(cname + 'h') // Hole number
 
             let cpar = GetURLParameter('cp');
 
@@ -288,7 +290,11 @@
             title.appendChild(courseNameDom);
             partxt.appendChild(parDom);
 
-            let parv = JSON.parse(localStorage.getItem(cname + 'p'))
+
+
+            let parv = parseLocalList(cname + 'p')[hnum - 1]
+            console.log(parv)
+
 
 
             let parcounter = document.getElementById('holepar');
@@ -303,6 +309,7 @@
 
         function parseLocalList(key) {
             let previtems = JSON.parse(localStorage.getItem(key))
+            return (previtems)
         }
 
         function setLocalList(key, value) {
@@ -359,6 +366,8 @@
         function reloadui() {
             let cname = GetURLParameter('cn')
 
+            let hnum = localStorage.getItem(cname + 'h')
+
             let strokes = document.getElementById('currenthits')
 
             let strokest = document.createTextNode(localStorage.getItem(cname))
@@ -381,7 +390,7 @@
 
 
 
-            let parv = JSON.parse(localStorage.getItem(cname + 'p'))
+            let parv = parseLocalList(cname + 'p')[hnum - 1]
 
 
             let parcounter = document.getElementById('holepar');
@@ -395,6 +404,7 @@
         function changepar() {
             let parchanger = document.getElementById('changepar');
             let parcounter = document.getElementById('holepar');
+            let cname = GetURLParameter('cn')
 
 
 
@@ -406,8 +416,8 @@
 
             parcounter.appendChild(newpar)
 
-            let hnum = JSON.parse(localStorage.getItem(cname + 'h')) // Hole number
-            let pall = JSON.parse(localStorage.getItem(cname + 'p')) // Par list
+            let hnum = parseLocalList(cname + 'h') // Hole number
+            let pall = parseLocalList(cname + 'p') // Par list
 
 
             pall[hnum - 1] = parseInt(parv);
@@ -473,6 +483,7 @@
             }
 
             if (hnum == 19) {
+                setLocalList(cname + 'h', 1)
                 window.location = './courseresult.html?cname=' + cname
             }
         }
