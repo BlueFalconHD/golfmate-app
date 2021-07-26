@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 
-<meta charset="UTF-8">
+
 
 
 <head>
-    <Title>Add Course</Title>
+    <Title>Course History</Title>
     <link rel="stylesheet" href="switches.css">
+    <meta charset="UTF-8">
 
     <style>
         .top {
@@ -66,6 +67,7 @@
             font-size: 20px;
             color: grey;
             border-color: rgb(209, 209, 209);
+            text-decoration: none;
             border-style: solid;
             margin-left: 15px;
             padding-left: 10px;
@@ -79,6 +81,10 @@
             width: -webkit-max-content;
         }
         
+        .course::marker {
+            content: none;
+        }
+        
         .course:hover {
             background-color: darkgray;
             color: white;
@@ -90,7 +96,7 @@
             transition: 0.2ms;
         }
         
-        li::marker {
+        .li::marker {
             border-color: rgb(209, 209, 209);
             border-style: solid;
             content: "🏌️  "
@@ -255,6 +261,10 @@
             padding: 3px 7px 3px 7px;
             display: inline-block;
         }
+        
+        .noBullet::marker {
+            content: none;
+        }
     </style>
 
     <script>
@@ -269,222 +279,78 @@
             }
         };
 
-
-        function loadcourse() {
-            let title = document.getElementById('courseTitleName');
-            let partxt = document.getElementById('par');
-
-            let cname = GetURLParameter('cn');
-
-            let cpar = GetURLParameter('cp');
-
-            cname = decodeURI(cname);
-            cpar = decodeURI(cpar);
-
-
-            let courseNameDom = document.createTextNode(cname);
-            let parDom = document.createTextNode('Par: ' + cpar);
-
-            title.appendChild(courseNameDom);
-            partxt.appendChild(parDom);
-
-            let parv = JSON.parse(localStorage.getItem(cname + 'p'))
-
-
-            let parcounter = document.getElementById('holepar');
-            parcounter.innerHTML = 'Par: ';
-
-            let newpar = document.createTextNode(parv)
-
-            parcounter.appendChild(newpar)
-
-
-        };
-
         function parseLocalList(key) {
             let previtems = JSON.parse(localStorage.getItem(key))
+            return (previtems)
         }
 
         function setLocalList(key, value) {
             localStorage.setItem(key, JSON.stringify(value))
         }
 
-        if (GetURLParameter('cn') + 'p' in localStorage) { // tests if courses key exists
 
-            console.log('Par for course key exists in localStorage')
+        function updateui() {
 
-        } else {
-            var parltt = []
+            let cname = GetURLParameter('cn');
+            let cnametxt = document.getElementById('cnamedom')
 
-            for (i = 0; i < 18; i++) {
-                parltt.push(0)
-            }
+            let newcname = document.createTextNode(cname)
 
-            setLocalList(GetURLParameter('cn') + 'p', parltt) // creates json structure of a list
-            console.log(JSON.stringify(parltt))
-            console.log('Created  list in localstorage')
-        }
+            cnametxt.innerHTML = '';
 
-        if (GetURLParameter('cn') in localStorage) {
-            console.log('Course stroke amt exists')
-        } else {
-            localStorage.setItem(GetURLParameter('cn'), 0)
-        }
-
-        if (GetURLParameter('cn') + 's' in localStorage) {
-            console.log('Course strokes exist')
-        } else {
-            strokes = [];
-
-            for (i = 0; i < 18; i++) {
-                strokes.push([])
-            }
-            console.log(JSON.stringify(strokes))
-            setLocalList(GetURLParameter('cn') + 's', strokes)
-        }
-
-        if (GetURLParameter('cn') + 'h' in localStorage) {
-            console.log('Course hole number types exist')
-        } else {
-            localStorage.setItem(GetURLParameter('cn') + 'h', 1)
-        }
-
-        if (GetURLParameter('cn') + 'hist' in localStorage) {
-            console.log('Course history exists')
-        } else {
-            localStorage.setItem(GetURLParameter('cn'), 0)
-        }
-
-
-        function reloadui() {
-            let cname = GetURLParameter('cn')
-
-            let strokes = document.getElementById('currenthits')
-
-            let strokest = document.createTextNode(localStorage.getItem(cname))
-
-            strokes.innerHTML = 'Strokes: ';
-
-            strokes.appendChild(strokest)
-
-            // -------------------
-
-            let hole = document.getElementById('hole')
-
-            let holet = document.createTextNode(localStorage.getItem(cname + 'h'))
-
-            hole.innerHTML = 'Hole ';
-
-            hole.appendChild(holet)
-
-            // -------------------
-
-
-
-            let parv = JSON.parse(localStorage.getItem(cname + 'p'))
-
-
-            let parcounter = document.getElementById('holepar');
-            parcounter.innerHTML = 'Par: ';
-
-            let newpar = document.createTextNode(parv)
-
-            parcounter.appendChild(newpar)
-        }
-
-        function changepar() {
-            let parchanger = document.getElementById('changepar');
-            let parcounter = document.getElementById('holepar');
-
-
-
-            let parv = parchanger.value
-
-            parcounter.innerHTML = 'Par: ';
-
-            let newpar = document.createTextNode(parv)
-
-            parcounter.appendChild(newpar)
-
-            let hnum = JSON.parse(localStorage.getItem(cname + 'h')) // Hole number
-            let pall = JSON.parse(localStorage.getItem(cname + 'p')) // Par list
-
-
-            pall[hnum - 1] = parseInt(parv);
-
-            setLocalList(GetURLParameter('cn') + 'p', pall)
-
+            cnametxt.appendChild(newcname)
 
         }
 
-        function addstroke(type) {
-            let cname = GetURLParameter('cn')
+        function filterCourses() {
+            // Declare variables
+            var input, filter, ul, li, a, i, txtValue;
+            input = document.getElementById('CourseSearch');
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("courses");
+            li = ul.getElementsByTagName('li');
 
-            let oldl = parseInt(localStorage.getItem(cname)); // Old score
-            let olds = JSON.parse(localStorage.getItem(cname + 's')) // Old stroke types
-            let hnum = JSON.parse(localStorage.getItem(cname + 'h')) // Hole number
-            let pall = JSON.parse(localStorage.getItem(cname + 'p')) // Par list
-
-            if (type === 1) { // Shot
-                var stype = 'shot'
-            }
-
-            if (type === 2) { // Chip 
-                var stype = 'chip'
-            }
-
-            if (type === 3) { // Putt
-                var stype = 'putt'
-            }
-
-            if (type === 4) { // Putt on green
-                var stype = 'puttog'
-            }
-
-            olds[hnum - 1].push(stype)
-
-
-            oldl++;
-
-            localStorage.setItem(cname, oldl);
-            setLocalList(cname + 's', olds)
-
-
-            console.log('Hole ' + hnum)
-            console.log('New stroke count: ' + oldl);
-            console.log('Stroke type: ' + stype)
-            console.log('Debug: ' + JSON.stringify(olds))
-            console.log('------------------------------------------')
-
-            // if ()
-
-            reloadui();
-        }
-
-        function nexthole() {
-            let cname = GetURLParameter('cn')
-            let hnum = JSON.parse(localStorage.getItem(cname + 'h')) // Hole number
-            let btn = document.getElementById('nexthole')
-            hnum++;
-            localStorage.setItem(cname + 'h', hnum)
-            reloadui()
-            if (hnum == 18) {
-                btn.innerHTML = "Finish Course"
-            }
-
-            if (hnum == 19) {
-                window.location = './courseresult.html?cname=' + cname
+            // Loop through all list items, and hide those who don't match the search query
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName("a")[0];
+                txtValue = a.textContent || a.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
             }
         }
 
+        function generateCourses() {
+            let courses = parseLocalList('courses')
+            console.log('Courses:' + courses)
+
+            courses.forEach(element => {
+                let name = element
+                let item = document.createElement('li')
+                item.setAttribute('class', 'course')
 
 
+                let text = document.createElement('a')
+                text.setAttribute('href', './courseresult.html?cname=' + name)
+                text.setAttribute('style', 'text-decoration: none; color: grey;')
+                text.setAttribute('class', 'noBullet')
+                text.innerText = name
 
-        // let parstore = {Coursename : [pars]}
+                item.appendChild(text)
+
+                let list = document.getElementById('courseList')
+                list.appendChild(item)
+            });
+        }
     </script>
 </head>
 
 <body style="background-color: rgb(228, 228, 228);">
+
+
+
     <div class="top">
         <img src="https://cdn0.iconfinder.com/data/icons/sports-equipment-10/100/Golf_club_bag-32.png" alt="GolfMate Logo" style="float: left; margin-top: -6px;">
         <span style="margin-left: 15px;" class="htext">GolfMate</span>
@@ -492,50 +358,30 @@
     <div style="display:block; margin-top: 60px; padding-top: 30px;">
 
 
-        <span class="title" id="courseTitleName"></span>
+
+        <span class="title">Course History</span>
+
         <br>
-        <span class="text" id="par"></span>
 
-        <br style="margin-bottom: 10px;">
 
-        <div style="margin-left: 15px; white-space: nowrap;">
-            <input type="checkbox" id="switch" /><label class="slabel" for="switch">Toggle</label>
-            <p>On: 18 Hole</p>
-            <p>Off: 9 Hole</p>
+
+        <div id="courses">
+            <input class="course" type="text" placeholder="Search" id="CourseSearch" onkeyup="filterCourses()">
+
+            <ul style="list-style: none; margin-left: -40px;" id="courseList">
+
+
+
+            </ul>
         </div>
 
-
-
-        <div style="margin-top: 20px;">
-            <span class="title" id="hole">Hole 1</span>
-            <p class="text" id="holepar">Par: 1</p>
-            <input placeholder="Edit Par..." type="number" style="margin-left: 15px; height: 25px; border-radius: 15px; background-color: white; padding: 0px 7px 0px 7px; appearance: none; text-align: center;" onchange="changepar()" id="changepar">
-            <p class="text" id="currenthits">Strokes: 1</p>
-            <div>
-                <p class="text">Add strokes:</p>
-
-                <select style="margin-left: 15px; height: 25px; border-radius: 15px; background-color: white; padding: 0px 7px 0px 7px; appearance: none; text-align: center;" id='ss'>
-                    <option>Shot</option>
-                    <option>Chip</option>
-                    <option>Putt</option>
-                    <option>Putt on Green</option>
-                </select>
-
-                <button style="height: 25px; border-radius: 15px; background-color: white; padding: 0px 7px 0px 7px; appearance: none; text-align: center;" onclick="let sstype = document.getElementById('ss'); if (sstype.value === 'Shot') {var type = 1}; if (sstype.value === 'Chip') {var type = 2}; if (sstype.value === 'Putt') {var type = 3}; if (sstype.value === 'Putt on Green') {var type = 4}; addstroke(type)">Add</button>
-            </div>
-
-            <div style="margin-left: 15px;">
-                <a style="margin-bottom: 20px; height: 20px; display: inline-block"></a>
-                <button style="height: 40px; border-radius: 5px; background-color: lightgreen; padding: 0px 7px 0px 7px; appearance: none; text-align: center;" onclick="nexthole()" id="nexthole">Next Hole</button>
-            </div>
-        </div>
-
-
-        <script>
-            loadcourse()
-
-            reloadui()
-        </script>
 
     </div>
+
+    </div>
+
+
+    <script>
+        generateCourses()
+    </script>
 </body>

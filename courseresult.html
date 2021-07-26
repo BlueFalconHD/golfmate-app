@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 
-<meta charset="UTF-8">
+
 
 
 <head>
-    <Title>Add Course</Title>
+    <Title>Course History</Title>
+    <link rel="stylesheet" href="switches.css">
+    <meta charset="UTF-8">
 
     <style>
         .top {
@@ -33,6 +35,14 @@
         
         .subtext {
             font-size: 15px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: black;
+            padding-left: 15px;
+            padding-top: 10px;
+        }
+        
+        .subtext2 {
+            font-size: 25px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: black;
             padding-left: 15px;
@@ -217,122 +227,99 @@
             transition: 0.5s;
             text-decoration: underline;
         }
+        
+        table {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            border-collapse: collapse;
+            width: 100%;
+            font-size: large;
+        }
+        
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+            color: black
+        }
+        
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+        
+        th {
+            font-weight: bold;
+        }
+        
+        .holenum {
+            width: 1px;
+            text-align: center;
+        }
+        
+        .sph {
+            border-radius: 20px;
+            width: fit-content;
+            height: 20px;
+            background-color: darkgray;
+            padding: 3px 7px 3px 7px;
+            display: inline-block;
+        }
     </style>
 
     <script>
-        function sleep(milliseconds) {
-            const date = Date.now();
-            let currentDate = null;
-            do {
-                currentDate = Date.now();
-            } while (currentDate - date < milliseconds);
-        }
-
-        function openCourse(cn) {
-            let newurl = 'https://bluefalconhd.github.io/golfmate-app/viewcourse.html?cn=' + cn + '&cp=72';
-            window.location = newurl;
-        }
-
-
-
-
-        function createCourse() {
-            let NewCourseName = document.getElementById("courseName").value; // Gets Course name
-            console.log('Course Created. Name: ' + NewCourseName);
-
-            var courseDiv = document.getElementById('courselist'); // refs div#courseList
-
-            let newline = document.createElement('br'); // Create <br> element
-
-            courseDiv.appendChild(newline); // add element to div: #courselist
-
-            let courseElement = document.createElement('button'); // creates course button.
-
-            courseElement.setAttribute('class', 'course'); // sets class to "course"
-            courseElement.setAttribute('id', 'playcourse');
-            courseElement.setAttribute('data-name', NewCourseName);
-            courseElement.setAttribute('onclick', 'window.location = "viewcourse.html?cn=" + this.getAttribute("data-name") +"&cp=72"');
-
-
-            let text = document.createTextNode(NewCourseName); // Adds name to course button
-
-
-
-
-
-
-            // Adds text to courseElement
-
-            courseElement.appendChild(text);
-
-
-            // Appends courseElement to #courselist
-
-            courseDiv.appendChild(courseElement);
-
-            // Sets input to null
-
-            document.getElementById("courseName").value = "";
-
-            // STORAGE
-
-
-            if ('courses' in localStorage) { // tests if courses key exists
-
-                console.log('Courses key exists in localStorage');
-            } else {
-                localStorage.setItem("courses", JSON.stringify([])); // creates json structure of a list
-                console.log('Created courses list in localstorage - ln 278');
+        function GetURLParameter(sParam) {
+            var sPageURL = window.location.search.substring(1);
+            var sURLVariables = sPageURL.split('&');
+            for (var i = 0; i < sURLVariables.length; i++) {
+                var sParameterName = sURLVariables[i].split('=');
+                if (sParameterName[0] == sParam) {
+                    return decodeURI(sParameterName[1])
+                }
             }
+        };
 
-            var previtems = JSON.parse(localStorage.getItem("courses")); // get list from  localstorage-courses
+        function parseLocalList(key) {
+            let previtems = JSON.parse(localStorage.getItem(key))
+            return (previtems)
+        }
 
+        function setLocalList(key, value) {
+            localStorage.setItem(key, JSON.stringify(value))
+        }
 
+        function updateui() {
 
-            previtems.push(NewCourseName); // Adds the new course
+            let cname = GetURLParameter('cname');
+            let cnametxt = document.getElementById('cnamedom')
 
-            localStorage.setItem("courses", JSON.stringify(previtems)); // restores courses
+            let newcname = document.createTextNode(cname)
+
+            cnametxt.innerHTML = '';
+
+            cnametxt.appendChild(newcname)
 
         }
 
-        function loadCourse() {
-            let NewCourseName = arguments[0]; // sets name to argss-0
-            console.log('Course loaded from memory. Name: ' + NewCourseName);
+        function addScores() {
+            for (let index = 0; /*index < array.length*/ ; index++) {
+                // const element = array[index];
 
-            var courseDiv = document.getElementById('courselist');
+                if (index > 17) {
+                    console.log('The End!')
+                    break
+                }
 
-            let newline = document.createElement('br');
+                console.log(index)
+                let cname = GetURLParameter('cname');
+                holediv = document.getElementById(index + 1)
+                text = document.createElement('p')
+                text.setAttribute('class', 'subtext')
+                text.innerHTML = parseLocalList(cname + 's')[index + 1]
 
-            courseDiv.appendChild(newline);
-            courseDiv.appendChild(newline);
-
-            let courseElement = document.createElement('button');
-
-            courseElement.setAttribute('class', 'course');
-            courseElement.setAttribute('id', 'playcourse');
-
-            courseElement.setAttribute('data-name', NewCourseName);
-
-            courseElement.setAttribute('onclick', 'window.location = "viewcourse.html?cn=" + this.getAttribute("data-name") +"&cp=72"');
-
-
-            let text = document.createTextNode(NewCourseName);
-
-
-
-
-
-            courseElement.appendChild(text);
-
-
-
-            courseDiv.appendChild(courseElement);
-
-            document.getElementById("courseName").value = "";
+                holediv.appendChild(text)
+            }
         }
     </script>
-
-
 </head>
 
 <body style="background-color: rgb(228, 228, 228);">
@@ -346,63 +333,90 @@
     <div style="display:block; margin-top: 60px; padding-top: 30px;">
 
 
-        <span class="title">Course Creator</span>
+        <span class="title" id="cnamedom"></span>
+        <p class="text" style="margin-top: -20px;">Course Results</p>
 
-        <br>
-        <div>
-
-            <span class="text" style="margin-top: 40px;">Current Courses:</span>
-
-
-            <div id="courselist">
-
-            </div>
-
-            <br>
-
-            <span class="text">Create Course:</span>
-            <br>
-            <span class="subtext">Par for each course is saved after course has been created.</span>
-
-            <br>
-            <div>
-                <input width="200px" type="text" placeholder="Course Name..." id="courseName" class="cm-txt">
-                <br>
-
-
-                <Button class="cm-in" onclick="createCourse();">Create Course</Button>
-            </div>
-
-
-
-        </div>
 
     </div>
+    <p class="subtext2">Hole 1</p>
+    <div id="1">
+
+    </div>
+    <p class="subtext2">Hole 2</p>
+    <div id="2">
+
+    </div>
+    <p class="subtext2">Hole 3</p>
+    <div id="3">
+
+    </div>
+    <p class="subtext2">Hole 4</p>
+    <div id="4">
+
+    </div>
+    <p class="subtext2">Hole 5</p>
+    <div id="5">
+
+    </div>
+    <p class="subtext2">Hole 6</p>
+    <div id="6">
+
+    </div>
+    <p class="subtext2">Hole 7</p>
+    <div id="7">
+
+    </div>
+    <p class="subtext2">Hole 8</p>
+    <div id="8">
+
+    </div>
+    <p class="subtext2">Hole 9</p>
+    <div id="9">
+
+    </div>
+    <p class="subtext2">Hole 10</p>
+    <div id="10">
+
+    </div>
+    <p class="subtext2">Hole 11</p>
+    <div id="11">
+
+    </div>
+    <p class="subtext2">Hole 12</p>
+    <div id="12">
+
+    </div>
+    <p class="subtext2">Hole 13</p>
+    <div id="13">
+
+    </div>
+    <p class="subtext2">Hole 14</p>
+    <div id="14">
+
+    </div>
+    <p class="subtext2">Hole 15</p>
+    <div id="15">
+
+    </div>
+    <p class="subtext2">Hole 16</p>
+    <div id="16">
+
+    </div>
+    <p class="subtext2">Hole 17</p>
+    <div id="17">
+
+    </div>
+    <p class="subtext2">Hole 18</p>
+    <div id="18">
+
+    </div>
+
+    </div>
+
 
     <script>
-        var allitems = JSON.parse(localStorage.getItem("courses"));
-
-        var length = allitems.length
-
-        for (let step = 0; step < length; step++) {
-            // Runs 5 times, with values of step 0 through 4.
-            loadCourse(allitems[step])
-        }
-
-        function nukedat() {
-            let conf = confirm('Are you sure you want to delete all your courses and save data')
-            if (conf) {
-                localStorage.clear();
-                location.reload();
-            }
-
-        }
+        // after load scripts.
+        updateui()
+        addScores()
     </script>
-
-    <div>
-        <button class="nukedat" onclick="nukedat()">
-            <span>Nuke Data <img src="https://cdn3.iconfinder.com/data/icons/jumpicon-military-glyph/32/-_Bomb-Airforce-Atomic-Military-War-Nuclear-512.png" width="15px" style="background-color: rgba(209, 209, 209, 0);"></span>
-        </button>
-    </div>
-
 </body>
