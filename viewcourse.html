@@ -276,7 +276,7 @@
 
 
             let cname = GetURLParameter('cn');
-            let hnum = parseLocalList(cname + 'h') // Hole number
+            let hnum = parseLocalList(cname + 'h'); // Hole number
 
             let cpar = GetURLParameter('cp');
 
@@ -292,166 +292,166 @@
 
 
 
-            let parv = parseLocalList(cname + 'p')[hnum - 1]
-            console.log(parv)
+            let parv = parseLocalList(cname + 'p')[hnum - 1];
+            console.log(parv);
 
 
 
             let parcounter = document.getElementById('holepar');
             parcounter.innerHTML = 'Par: ';
 
-            let newpar = document.createTextNode(parv)
+            let newpar = document.createTextNode(parv);
 
-            parcounter.appendChild(newpar)
+            parcounter.appendChild(newpar);
 
 
         };
 
         function parseLocalList(key) {
-            let previtems = JSON.parse(localStorage.getItem(key))
-            return (previtems)
-        }
+            let previtems = JSON.parse(localStorage.getItem(key));
+            return (previtems);
+        };
 
         function setLocalList(key, value) {
-            localStorage.setItem(key, JSON.stringify(value))
-        }
+            localStorage.setItem(key, JSON.stringify(value));
+        };
 
         if (GetURLParameter('cn') + 'p' in localStorage) { // tests if courses key exists
 
-            console.log('Par for course key exists in localStorage')
+            console.log('Par for course key exists in localStorage');
 
         } else {
-            var parltt = []
+            var parltt = [];
 
             for (i = 0; i < 18; i++) {
-                parltt.push(0)
-            }
+                parltt.push(0);
+            };
 
-            setLocalList(GetURLParameter('cn') + 'p', parltt) // creates json structure of a list
-            console.log(JSON.stringify(parltt))
-            console.log('Created  list in localstorage')
-        }
+            setLocalList(GetURLParameter('cn') + 'p', parltt); // creates json structure of a list
+            console.log(JSON.stringify(parltt));
+            console.log('Created  list in localstorage');
+        };
 
         if (GetURLParameter('cn') in localStorage) {
-            console.log('Course stroke amt exists')
+            console.log('Course stroke amt exists');
         } else {
-            localStorage.setItem(GetURLParameter('cn'), 0)
-        }
+            localStorage.setItem(GetURLParameter('cn'), 0);
+        };
 
         if (GetURLParameter('cn') + 's' in localStorage) {
-            console.log('Course strokes exist')
+            console.log('Course strokes exist');
         } else {
             strokes = [];
 
             for (i = 0; i < 18; i++) {
-                strokes.push([])
+                strokes.push([]);
             }
-            console.log(JSON.stringify(strokes))
-            setLocalList(GetURLParameter('cn') + 's', strokes)
-        }
+            console.log(JSON.stringify(strokes));
+            setLocalList(GetURLParameter('cn') + 's', strokes);
+        };
 
         if (GetURLParameter('cn') + 'h' in localStorage) {
-            console.log('Course hole number types exist')
+            console.log('Course hole number types exist');
         } else {
-            localStorage.setItem(GetURLParameter('cn') + 'h', 1)
-        }
+            localStorage.setItem(GetURLParameter('cn') + 'h', 1);
+        };
 
         if (GetURLParameter('cn') + 'hist' in localStorage) {
-            console.log('Course history exists')
+            console.log('Course history exists');
         } else {
-            localStorage.setItem(GetURLParameter('cn'), 0)
-        }
+            localStorage.setItem(GetURLParameter('cn'), 0);
+        };
 
 
         function reloadui() {
-            let cname = GetURLParameter('cn')
+            let cname = GetURLParameter('cn');
 
-            let hnum = localStorage.getItem(cname + 'h')
+            let hnum = localStorage.getItem(cname + 'h');
 
-            let strokes = document.getElementById('currenthits')
+            let strokes = document.getElementById('currenthits');
 
-            let strokest = document.createTextNode(localStorage.getItem(cname))
+            let strokest = document.createTextNode(localStorage.getItem(cname));
 
             strokes.innerHTML = 'Strokes: ';
 
-            strokes.appendChild(strokest)
+            strokes.appendChild(strokest);
 
             // -------------------
 
-            let hole = document.getElementById('hole')
+            let hole = document.getElementById('hole');
 
-            let holet = document.createTextNode(localStorage.getItem(cname + 'h'))
+            let holet = document.createTextNode(localStorage.getItem(cname + 'h'));
 
             hole.innerHTML = 'Hole ';
 
-            hole.appendChild(holet)
+            hole.appendChild(holet);
 
             // -------------------
 
 
 
-            let parv = parseLocalList(cname + 'p')[hnum - 1]
+            let parv = parseLocalList(cname + 'p')[hnum - 1];
 
 
             let parcounter = document.getElementById('holepar');
             parcounter.innerHTML = 'Par: ';
 
-            let newpar = document.createTextNode(parv)
+            let newpar = document.createTextNode(parv);
 
-            parcounter.appendChild(newpar)
-        }
+            parcounter.appendChild(newpar);
+        };
 
         function changepar() {
             let parchanger = document.getElementById('changepar');
             let parcounter = document.getElementById('holepar');
-            let cname = GetURLParameter('cn')
+            let cname = GetURLParameter('cn');
 
 
 
-            let parv = parchanger.value
+            let parv = parchanger.value;
 
             parcounter.innerHTML = 'Par: ';
 
-            let newpar = document.createTextNode(parv)
+            let newpar = document.createTextNode(parv);
 
-            parcounter.appendChild(newpar)
+            parcounter.appendChild(newpar);
 
-            let hnum = parseLocalList(cname + 'h') // Hole number
-            let pall = parseLocalList(cname + 'p') // Par list
+            let hnum = parseLocalList(cname + 'h'); // Hole number
+            let pall = parseLocalList(cname + 'p'); // Par list
 
 
             pall[hnum - 1] = parseInt(parv);
 
-            setLocalList(GetURLParameter('cn') + 'p', pall)
+            setLocalList(GetURLParameter('cn') + 'p', pall);
 
 
-        }
+        };
 
         function addstroke(type) {
-            let cname = GetURLParameter('cn')
+            let cname = GetURLParameter('cn');
 
             let oldl = parseInt(localStorage.getItem(cname)); // Old score
-            let olds = JSON.parse(localStorage.getItem(cname + 's')) // Old stroke types
-            let hnum = JSON.parse(localStorage.getItem(cname + 'h')) // Hole number
-            let pall = JSON.parse(localStorage.getItem(cname + 'p')) // Par list
+            let olds = JSON.parse(localStorage.getItem(cname + 's')); // Old stroke types
+            let hnum = JSON.parse(localStorage.getItem(cname + 'h')); // Hole number
+            let pall = JSON.parse(localStorage.getItem(cname + 'p')); // Par list
 
             if (type === 1) { // Shot
                 var stype = 'shot'
-            }
+            };
 
             if (type === 2) { // Chip 
                 var stype = 'chip'
-            }
+            };
 
             if (type === 3) { // Putt
                 var stype = 'putt'
-            }
+            };
 
             if (type === 4) { // Putt on green
                 var stype = 'puttog'
-            }
+            };
 
-            olds[hnum - 1].push(stype)
+            olds[hnum - 1].push(stype);
 
 
             oldl++;
@@ -460,28 +460,28 @@
             setLocalList(cname + 's', olds)
 
 
-            console.log('Hole ' + hnum)
+            console.log('Hole ' + hnum);
             console.log('New stroke count: ' + oldl);
-            console.log('Stroke type: ' + stype)
-            console.log('Debug: ' + JSON.stringify(olds))
-            console.log('------------------------------------------')
+            console.log('Stroke type: ' + stype);
+            console.log('Debug: ' + JSON.stringify(olds));
+            console.log('------------------------------------------');
 
-            // if ()
+            
 
             reloadui();
-        }
+        };
 
         function nexthole() {
             let cname = GetURLParameter('cn')
-            let hnum = JSON.parse(localStorage.getItem(cname + 'h')) // Hole number
-            let btn = document.getElementById('nexthole')
+            let hnum = JSON.parse(localStorage.getItem(cname + 'h')) // Hole number;
+            let btn = document.getElementById('nexthole');
             hnum++;
-            localStorage.setItem(cname + 'h', hnum)
-            reloadui()
+            localStorage.setItem(cname + 'h', hnum);
+            reloadui();
             if (hnum == 18) {
-                btn.innerHTML = "Finish Course"
-                btn.setAttribute('onClick', 'setLocalList(cname + 'h', 1); window.location = './courseresult.html?cname=' + cname')
-            }
+                btn.innerHTML = "Finish Course";
+                btn.setAttribute('onClick', 'setLocalList(cname + 'h', 1); window.location = './courseresult.html?cname=' + cname');
+            };
 
             //if (hnum == 19) {
             //    setLocalList(cname + 'h', 1)
@@ -544,7 +544,7 @@
 
 
         <script>
-            loadcourse()
+            loadcourse();
 
             reloadui()
         </script>
